@@ -9,6 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 //@SpringBootApplication
 //@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
 //@ComponentScan(basePackages = {"com.mszx.hyb.configure"})
+//dfasdfas
 @SpringBootApplication
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
 @ComponentScan(basePackages = {"com.mszx.hyb"})
