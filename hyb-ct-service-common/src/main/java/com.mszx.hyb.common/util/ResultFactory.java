@@ -30,6 +30,7 @@ public class ResultFactory {
 
 //    public static  Result getErrorResult(String msg) {
 //        return getErrorResult(CommonFinal.RESULT_CODE_FAILURE, CommonFinal.FAIL);
+    //wl test git commit 1
 //    }
 
     public static <T> Result<T>  getSuccessResult(T data) {
