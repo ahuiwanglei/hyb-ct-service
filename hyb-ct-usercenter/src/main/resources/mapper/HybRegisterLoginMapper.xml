@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mszx.hyb.dao.HybRegisterLoginMapper">
+  <resultMap id="BaseResultMap" type="com.mszx.hyb.entity.HybRegisterLogin">
+    <id column="loginId" jdbcType="VARCHAR" property="loginid" />
+    <result column="pkregister" jdbcType="VARCHAR" property="pkregister" />
+    <result column="appID" jdbcType="VARCHAR" property="appid" />
+    <result column="loginTime" jdbcType="TIMESTAMP" property="logintime" />
+    <result column="cpuId" jdbcType="VARCHAR" property="cpuid" />
+    <result column="pushId" jdbcType="VARCHAR" property="pushid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    loginId, pkregister, appID, loginTime, cpuId, pushId
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from hyb_register_login
+    where loginId = #{loginid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from hyb_register_login
+    where loginId = #{loginid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.mszx.hyb.entity.HybRegisterLogin">
+    insert into hyb_register_login (loginId, pkregister, appID, 
+      loginTime, cpuId, pushId
+      )
+    values (#{loginid,jdbcType=VARCHAR}, #{pkregister,jdbcType=VARCHAR}, #{appid,jdbcType=VARCHAR}, 
+      #{logintime,jdbcType=TIMESTAMP}, #{cpuid,jdbcType=VARCHAR}, #{pushid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mszx.hyb.entity.HybRegisterLogin">
+    insert into hyb_register_login
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="loginid != null">
+        loginId,
+      </if>
+      <if test="pkregister != null">
+        pkregister,
+      </if>
+      <if test="appid != null">
+        appID,
+      </if>
+      <if test="logintime != null">
+        loginTime,
+      </if>
+      <if test="cpuid != null">
+        cpuId,
+      </if>
+      <if test="pushid != null">
+        pushId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="loginid != null">
+        #{loginid,jdbcType=VARCHAR},
+      </if>
+      <if test="pkregister != null">
+        #{pkregister,jdbcType=VARCHAR},
+      </if>
+      <if test="appid != null">
+        #{appid,jdbcType=VARCHAR},
+      </if>
+      <if test="logintime != null">
+        #{logintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cpuid != null">
+        #{cpuid,jdbcType=VARCHAR},
+      </if>
+      <if test="pushid != null">
+        #{pushid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mszx.hyb.entity.HybRegisterLogin">
+    update hyb_register_login
+    <set>
+      <if test="pkregister != null">
+        pkregister = #{pkregister,jdbcType=VARCHAR},
+      </if>
+      <if test="appid != null">
+        appID = #{appid,jdbcType=VARCHAR},
+      </if>
+      <if test="logintime != null">
+        loginTime = #{logintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cpuid != null">
+        cpuId = #{cpuid,jdbcType=VARCHAR},
+      </if>
+      <if test="pushid != null">
+        pushId = #{pushid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where loginId = #{loginid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mszx.hyb.entity.HybRegisterLogin">
+    update hyb_register_login
+    set pkregister = #{pkregister,jdbcType=VARCHAR},
+      appID = #{appid,jdbcType=VARCHAR},
+      loginTime = #{logintime,jdbcType=TIMESTAMP},
+      cpuId = #{cpuid,jdbcType=VARCHAR},
+      pushId = #{pushid,jdbcType=VARCHAR}
+    where loginId = #{loginid,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 自定义 -->
+   <select id="selectByPkregisterKey"  resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from hyb_register_login
+    where pkregister = #{0}
+  </select>
+</mapper>

@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mszx.hyb.dao.HybWxFanMapper">
+    <resultMap id="BaseResultMap" type="com.mszx.hyb.entity.HybWxFan">
+        <id column="pkfansid" jdbcType="INTEGER" property="pkfansid"/>
+        <result column="subscribe" jdbcType="INTEGER" property="subscribe"/>
+        <result column="openid" jdbcType="CHAR" property="openid"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+        <result column="sexDesc" jdbcType="VARCHAR" property="sexdesc"/>
+        <result column="sex" jdbcType="INTEGER" property="sex"/>
+        <result column="language" jdbcType="CHAR" property="language"/>
+        <result column="city" jdbcType="VARCHAR" property="city"/>
+        <result column="province" jdbcType="VARCHAR" property="province"/>
+        <result column="country" jdbcType="VARCHAR" property="country"/>
+        <result column="headImgUrl" jdbcType="CHAR" property="headimgurl"/>
+        <result column="subscribeTime" jdbcType="CHAR" property="subscribetime"/>
+        <result column="unionId" jdbcType="CHAR" property="unionid"/>
+        <result column="access_token" jdbcType="CHAR" property="accessToken"/>
+        <result column="refresh_token" jdbcType="CHAR" property="refreshToken"/>
+        <result column="remark" jdbcType="CHAR" property="remark"/>
+        <result column="appid" jdbcType="CHAR" property="appid"/>
+        <result column="pkregister" jdbcType="CHAR" property="pkregister"/>
+        <result column="create_at" jdbcType="TIMESTAMP" property="createAt"/>
+        <result column="total_integral" jdbcType="DECIMAL" property="total_integral"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    pkfansid, subscribe, openid, nickname, sexDesc, sex, language, city, province, country, 
+    headImgUrl, subscribeTime, unionId, access_token, refresh_token, remark, appid, pkregister, 
+    create_at
+  </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from hyb_wx_fans
+        where pkfansid = #{pkfansid,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectByOpenId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from hyb_wx_fans
+        where openid = #{openid}
+    </select>
+    <select id="selectByUnionid" resultType="com.mszx.hyb.entity.HybWxFan">
+        select
+        <include refid="Base_Column_List"/>
+        from hyb_wx_fans
+        where unionid = #{unionid}
+    </select>
+
+    <select id="selectWxUserByOpenid" resultType="com.mszx.hyb.entity.HybWxUser" parameterType="com.mszx.hyb.entity.HybWxUser">
+        select
+           fans.pkfansid,
+           fans.subscribe,
+           fans.openid,
+           fans.nickname wx_nickname,
+           fans.sexDesc,
+           fans.sex,
+           fans.language,
+           fans.city,
+           fans.province,
+           fans.country,
+           fans.headImgUrl,
+           fans.subscribeTime,
+           fans.unionId,
+           fans.access_token,
+           fans.refresh_token,
+           fans.remark,
+           fans.appid,
+           fans.pkregister,
+           fans.create_at,
+           register.phoneno,
+           register.bankusername,
+           register.bankcardno,
+           register.bankname,
+           register.bankCode,
+           register.nickname
+        from hyb_wx_fans fans left join hyb_register register on fans.pkregister = register.pkregister
+        where
+        <if test="unionid != null and unionid != ''">
+            fans.unionId = #{unionid} and
+        </if>
+        <if test="unionid == null or unionid == '' ">
+            fans.openid = #{openid} and
+        </if>
+         register.phoneno is not null
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from hyb_wx_fans
+    where pkfansid = #{pkfansid,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.mszx.hyb.entity.HybWxFan" keyColumn="pkfansid" useGeneratedKeys="true">
+    insert into hyb_wx_fans ( subscribe, openid,
+      nickname, sexDesc, sex, 
+      language, city, province, 
+      country, headImgUrl, subscribeTime, 
+      unionId, access_token, refresh_token, 
+      remark, appid, pkregister, create_at
+      )
+    values ( #{subscribe,jdbcType=INTEGER}, #{openid,jdbcType=CHAR},
+      #{nickname,jdbcType=VARCHAR}, #{sexdesc,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, 
+      #{language,jdbcType=CHAR}, #{city,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
+      #{country,jdbcType=VARCHAR}, #{headimgurl,jdbcType=CHAR}, #{subscribetime,jdbcType=CHAR}, 
+      #{unionid,jdbcType=CHAR}, #{accessToken,jdbcType=CHAR}, #{refreshToken,jdbcType=CHAR}, 
+      #{remark,jdbcType=CHAR}, #{appid,jdbcType=CHAR}, #{pkregister,jdbcType=CHAR}, #{createAt,jdbcType=TIMESTAMP}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.mszx.hyb.entity.HybWxFan" keyProperty="pkfansid"
+            useGeneratedKeys="true">
+        insert into hyb_wx_fans
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="subscribe != null">
+                subscribe,
+            </if>
+            <if test="openid != null">
+                openid,
+            </if>
+            <if test="nickname != null">
+                nickname,
+            </if>
+            <if test="sexdesc != null">
+                sexDesc,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="language != null">
+                language,
+            </if>
+            <if test="city != null">
+                city,
+            </if>
+            <if test="province != null">
+                province,
+            </if>
+            <if test="country != null">
+                country,
+            </if>
+            <if test="headimgurl != null">
+                headImgUrl,
+            </if>
+            <if test="subscribetime != null">
+                subscribeTime,
+            </if>
+            <if test="unionid != null">
+                unionId,
+            </if>
+            <if test="accessToken != null">
+                access_token,
+            </if>
+            <if test="refreshToken != null">
+                refresh_token,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="appid != null">
+                appid,
+            </if>
+            <if test="pkregister != null">
+                pkregister,
+            </if>
+            <if test="createAt != null">
+                create_at,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="subscribe != null">
+                #{subscribe,jdbcType=INTEGER},
+            </if>
+            <if test="openid != null">
+                #{openid,jdbcType=CHAR},
+            </if>
+            <if test="nickname != null">
+                #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="sexdesc != null">
+                #{sexdesc,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=INTEGER},
+            </if>
+            <if test="language != null">
+                #{language,jdbcType=CHAR},
+            </if>
+            <if test="city != null">
+                #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="province != null">
+                #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="country != null">
+                #{country,jdbcType=VARCHAR},
+            </if>
+            <if test="headimgurl != null">
+                #{headimgurl,jdbcType=CHAR},
+            </if>
+            <if test="subscribetime != null">
+                #{subscribetime,jdbcType=CHAR},
+            </if>
+            <if test="unionid != null">
+                #{unionid,jdbcType=CHAR},
+            </if>
+            <if test="accessToken != null">
+                #{accessToken,jdbcType=CHAR},
+            </if>
+            <if test="refreshToken != null">
+                #{refreshToken,jdbcType=CHAR},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=CHAR},
+            </if>
+            <if test="appid != null">
+                #{appid,jdbcType=CHAR},
+            </if>
+            <if test="pkregister != null">
+                #{pkregister,jdbcType=CHAR},
+            </if>
+            <if test="createAt != null">
+                #{createAt,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.mszx.hyb.entity.HybWxFan">
+        update hyb_wx_fans
+        <set>
+            <if test="subscribe != null">
+                subscribe = #{subscribe,jdbcType=INTEGER},
+            </if>
+            <if test="openid != null">
+                openid = #{openid,jdbcType=CHAR},
+            </if>
+            <if test="nickname != null">
+                nickname = #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="sexdesc != null">
+                sexDesc = #{sexdesc,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                sex = #{sex,jdbcType=INTEGER},
+            </if>
+            <if test="language != null">
+                language = #{language,jdbcType=CHAR},
+            </if>
+            <if test="city != null">
+                city = #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="province != null">
+                province = #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="country != null">
+                country = #{country,jdbcType=VARCHAR},
+            </if>
+            <if test="headimgurl != null">
+                headImgUrl = #{headimgurl,jdbcType=CHAR},
+            </if>
+            <if test="subscribetime != null">
+                subscribeTime = #{subscribetime,jdbcType=CHAR},
+            </if>
+            <if test="unionid != null">
+                unionId = #{unionid,jdbcType=CHAR},
+            </if>
+            <if test="accessToken != null">
+                access_token = #{accessToken,jdbcType=CHAR},
+            </if>
+            <if test="refreshToken != null">
+                refresh_token = #{refreshToken,jdbcType=CHAR},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=CHAR},
+            </if>
+            <if test="appid != null">
+                appid = #{appid,jdbcType=CHAR},
+            </if>
+            <if test="pkregister != null">
+                pkregister = #{pkregister,jdbcType=CHAR},
+            </if>
+            <if test="createAt != null">
+                create_at = #{createAt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="contact_name != null">
+                contact_name = #{contact_name,jdbcType=VARCHAR},
+            </if>
+            <if test="contact_cellphone != null">
+                contact_cellphone = #{contact_cellphone,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where
+        <choose>
+            <when test="pkfansid != null">
+                pkfansid = #{pkfansid,jdbcType=INTEGER}
+            </when>
+            <otherwise>
+                openid = #{openid}
+            </otherwise>
+        </choose>
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.mszx.hyb.entity.HybWxFan">
+    update hyb_wx_fans
+    set subscribe = #{subscribe,jdbcType=INTEGER},
+      openid = #{openid,jdbcType=CHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      sexDesc = #{sexdesc,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      language = #{language,jdbcType=CHAR},
+      city = #{city,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      country = #{country,jdbcType=VARCHAR},
+      headImgUrl = #{headimgurl,jdbcType=CHAR},
+      subscribeTime = #{subscribetime,jdbcType=CHAR},
+      unionId = #{unionid,jdbcType=CHAR},
+      access_token = #{accessToken,jdbcType=CHAR},
+      refresh_token = #{refreshToken,jdbcType=CHAR},
+      remark = #{remark,jdbcType=CHAR},
+      appid = #{appid,jdbcType=CHAR},
+      pkregister = #{pkregister,jdbcType=CHAR},
+      create_at = #{createAt,jdbcType=TIMESTAMP}
+    where pkfansid = #{pkfansid,jdbcType=INTEGER}
+  </update>
+
+    <update id="updateIntegralById" parameterType="com.mszx.hyb.entity.HybWxFan">
+        update hyb_wx_fans
+        set total_integral = #{total_integral}
+        where
+        <choose>
+            <when test="pkfansid != null and pkfansid != ''">
+                pkfansid = #{pkfansid,jdbcType=INTEGER}
+            </when>
+            <otherwise>
+                openid = #{openid}
+            </otherwise>
+        </choose>
+    </update>
+    <update id="updateUnionidByPkregister" parameterType="com.mszx.hyb.entity.HybWxFan">
+         update hyb_wx_fans
+         set unionId = #{unionid,jdbcType=CHAR}
+         where pkregister = #{pkregister,jdbcType=CHAR} and unionId is null
+    </update>
+</mapper>

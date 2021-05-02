@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mszx.hyb.dao.HybRegisterMapper">
+  <resultMap id="BaseResultMap" type="com.mszx.hyb.entity.HybRegister">
+    <id column="pkregister" jdbcType="CHAR" property="pkregister" />
+    <result column="cpuid" jdbcType="VARCHAR" property="cpuid" />
+    <result column="phoneno" jdbcType="CHAR" property="phoneno" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="loginpassword" jdbcType="CHAR" property="loginpassword" />
+    <result column="position" jdbcType="VARCHAR" property="position" />
+    <result column="registerdate" jdbcType="VARCHAR" property="registerdate" />
+    <result column="locktime" jdbcType="VARCHAR" property="locktime" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="sex" jdbcType="INTEGER" property="sex" />
+    <result column="birthday" jdbcType="VARCHAR" property="birthday" />
+    <result column="uid" jdbcType="INTEGER" property="uid" />
+    <result column="wx_openid" jdbcType="VARCHAR" property="wxOpenid" />
+    <result column="qq_openid" jdbcType="VARCHAR" property="qqOpenid" />
+    <result column="bgpic" jdbcType="VARCHAR" property="bgpic" />
+    <result column="paypassword" jdbcType="VARCHAR" property="paypassword" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    pkregister, cpuid, phoneno, email, loginpassword, position, registerdate, locktime, 
+    nickname, sex, birthday, uid, wx_openid, qq_openid, bgpic, paypassword
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from hyb_register
+    where pkregister = #{pkregister,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from hyb_register
+    where pkregister = #{pkregister,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.mszx.hyb.entity.HybRegister">
+    insert into hyb_register (pkregister, cpuid, phoneno, 
+      email, loginpassword, position, 
+      registerdate, locktime, nickname, 
+      sex, birthday, uid, 
+      wx_openid, qq_openid, bgpic)
+    values (#{pkregister,jdbcType=CHAR}, #{cpuid,jdbcType=VARCHAR}, #{phoneno,jdbcType=CHAR}, 
+      #{email,jdbcType=VARCHAR}, #{loginpassword,jdbcType=CHAR}, #{position,jdbcType=VARCHAR}, 
+      #{registerdate,jdbcType=VARCHAR}, #{locktime,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=INTEGER}, #{birthday,jdbcType=VARCHAR}, #{uid,jdbcType=INTEGER}, 
+      #{wxOpenid,jdbcType=VARCHAR}, #{qqOpenid,jdbcType=VARCHAR}, #{bgpic,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mszx.hyb.entity.HybRegister">
+    insert into hyb_register
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pkregister != null">
+        pkregister,
+      </if>
+      <if test="cpuid != null">
+        cpuid,
+      </if>
+      <if test="phoneno != null">
+        phoneno,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="loginpassword != null">
+        loginpassword,
+      </if>
+      <if test="position != null">
+        position,
+      </if>
+      <if test="registerdate != null">
+        registerdate,
+      </if>
+      <if test="locktime != null">
+        locktime,
+      </if>
+      <if test="nickname != null">
+        nickname,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="wxOpenid != null">
+        wx_openid,
+      </if>
+      <if test="qqOpenid != null">
+        qq_openid,
+      </if>
+      <if test="bgpic != null">
+        bgpic,
+      </if>
+      <if test="appid != null">
+        appid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pkregister != null">
+        #{pkregister,jdbcType=CHAR},
+      </if>
+      <if test="cpuid != null">
+        #{cpuid,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneno != null">
+        #{phoneno,jdbcType=CHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="loginpassword != null">
+        #{loginpassword,jdbcType=CHAR},
+      </if>
+      <if test="position != null">
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="registerdate != null">
+        #{registerdate,jdbcType=VARCHAR},
+      </if>
+      <if test="locktime != null">
+        #{locktime,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="wxOpenid != null">
+        #{wxOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="qqOpenid != null">
+        #{qqOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="bgpic != null">
+        #{bgpic,jdbcType=VARCHAR},
+      </if>
+      <if test="appid != null">
+        #{appid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mszx.hyb.entity.HybRegister">
+    update hyb_register
+    <set>
+      <if test="cpuid != null">
+        cpuid = #{cpuid,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneno != null">
+        phoneno = #{phoneno,jdbcType=CHAR},
+      </if>
+      <if test="email != null and email != ''">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="loginpassword != null">
+        loginpassword = #{loginpassword,jdbcType=CHAR},
+      </if>
+      <if test="position != null and position != ''">
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="registerdate != null">
+        registerdate = #{registerdate,jdbcType=VARCHAR},
+      </if>
+      <if test="locktime != null">
+        locktime = #{locktime,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null and nickname != ''">
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="wxOpenid != null">
+        wx_openid = #{wxOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="qqOpenid != null">
+        qq_openid = #{qqOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="bgpic != null">
+        bgpic = #{bgpic,jdbcType=VARCHAR},
+      </if>
+      <if test="paypassword != null">
+        paypassword = #{paypassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pkregister = #{pkregister,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mszx.hyb.entity.HybRegister">
+    update hyb_register
+    set cpuid = #{cpuid,jdbcType=VARCHAR},
+      phoneno = #{phoneno,jdbcType=CHAR},
+      email = #{email,jdbcType=VARCHAR},
+      loginpassword = #{loginpassword,jdbcType=CHAR},
+      position = #{position,jdbcType=VARCHAR},
+      registerdate = #{registerdate,jdbcType=VARCHAR},
+      locktime = #{locktime,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      birthday = #{birthday,jdbcType=VARCHAR},
+      uid = #{uid,jdbcType=INTEGER},
+      wx_openid = #{wxOpenid,jdbcType=VARCHAR},
+      qq_openid = #{qqOpenid,jdbcType=VARCHAR},
+      bgpic = #{bgpic,jdbcType=VARCHAR}
+    where pkregister = #{pkregister,jdbcType=CHAR}
+  </update>
+  
+   <select id="selectByPhoneKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from hyb_register
+    where phoneno = #{phoneno} and appid = #{appid}
+     limit 1
+  </select>
+  
+  <select id="selectByWeixinKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from hyb_register
+    where wx_openid = #{openid} and appid = #{appid}
+  </select>
+  
+  <select id="selectByQQKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from hyb_register
+    where qq_openid = #{openid} and appid = #{appid}
+  </select>
+  
+</mapper>

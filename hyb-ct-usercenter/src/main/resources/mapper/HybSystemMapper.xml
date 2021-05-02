@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mszx.hyb.dao.HybSystemMapper">
+	<resultMap id="BaseResultMap" type="com.mszx.hyb.entity.HybSystem">
+		<id column="pksystem" jdbcType="CHAR" property="pksystem" />
+		<result column="sysname" jdbcType="VARCHAR" property="sysname" />
+		<result column="sysversion" jdbcType="VARCHAR" property="sysversion" />
+		<result column="sysaddress" jdbcType="VARCHAR" property="sysaddress" />
+		<result column="sysdesc" jdbcType="VARCHAR" property="sysdesc" />
+		<result column="syslogourl" jdbcType="VARCHAR" property="syslogourl" />
+		<result column="sysphone" jdbcType="VARCHAR" property="sysphone" />
+		<result column="balance" jdbcType="DECIMAL" property="balance" />
+		<result column="interest" jdbcType="DECIMAL" property="interest" />
+		<result column="mobierecharge" jdbcType="DECIMAL" property="mobierecharge" />
+		<result column="oilcardrecharge" jdbcType="DECIMAL" property="oilcardrecharge" />
+		<result column="qqrecharge" jdbcType="DECIMAL" property="qqrecharge" />
+		<result column="systemdividend" jdbcType="DECIMAL" property="systemdividend" />
+		<result column="firstmchantpoundage" jdbcType="DECIMAL" property="firstmchantpoundage" />
+		<result column="othermchantpoundage" jdbcType="DECIMAL" property="othermchantpoundage" />
+		<result column="firstdealerdividend" jdbcType="DECIMAL" property="firstdealerdividend" />
+		<result column="otherdealerdividend" jdbcType="DECIMAL" property="otherdealerdividend" />
+		<result column="firstmchantdividend" jdbcType="DECIMAL" property="firstmchantdividend" />
+		<result column="thirdpoundage" jdbcType="DECIMAL" property="thirdpoundage" />
+		<result column="integral" jdbcType="DECIMAL" property="integral" />
+		<result column="virtualbalance" jdbcType="DECIMAL" property="virtualbalance" />
+		<result column="exchange" jdbcType="INTEGER" property="exchange" />
+		<result column="withdraw_start" jdbcType="DECIMAL" property="withdraw_start" />
+		<result column="withdraw_end" jdbcType="DECIMAL" property="withdraw_end" />
+		<result column="recharge_start" jdbcType="DECIMAL" property="recharge_start" />
+		<result column="recharge_end" jdbcType="DECIMAL" property="recharge_end" />
+		<result column="system_account" jdbcType="CHAR" property="system_account" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		pksystem, sysname, sysversion, sysaddress, sysdesc, syslogourl,exchange,
+		sysphone,balance,interest,mobierecharge,oilcardrecharge,qqrecharge,systemdividend,firstmchantpoundage,
+		othermchantpoundage,firstdealerdividend,otherdealerdividend,firstmchantdividend,thirdpoundage,integral,virtualbalance,
+		withdraw_start, withdraw_end, recharge_start, recharge_end,system_account
+	</sql>
+	<select id="selectSystem" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from hyb_system
+	</select>
+
+</mapper>

@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mszx.hyb.ordercenter.dao.HybOrderMapper">
+    <sql id="Base_Column_List">
+    orderid,
+    ordernum,
+   appid,
+   pkmuser,
+   pkmuser_name,
+   userid,
+   order_type,
+   order_title,
+   order_status,
+    discounted_amount,
+    amount,
+    real_pay_amount,
+    review_user,
+    is_ship,
+    receipt_at,
+    ship_price,
+    ship_info,
+    pay_at,
+    pay_type,
+    update_at,
+    create_at,
+    barcode,
+    outid,
+    outOrderId,
+    check_consume_user,
+    check_consume_status,
+    check_consume_time,
+    check_code
+  </sql>
+
+
+    <insert id="insertOrder" parameterType="com.mszx.hyb.ordercenter.entity.HybOrder" useGeneratedKeys="true"
+            keyProperty="orderid">
+        INSERT INTO hyb_ct_oc_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+
+            <if test="ordernum != null">
+                ordernum,
+            </if>
+            <if test="appid != null">
+                appid,
+            </if>
+            <if test="pkmuser != null">
+                pkmuser,
+            </if>
+            <if test="pkmuser_name != null">
+                pkmuser_name,
+            </if>
+            <if test="userid != null">
+                userid,
+            </if>
+            <if test="order_type != null">
+                order_type,
+            </if>
+            <if test="order_title != null">
+                order_title,
+            </if>
+            <if test="order_status != null">
+                order_status,
+            </if>
+            <if test="discounted_amount != null">
+                discounted_amount,
+            </if>
+            <if test="amount != null">
+                amount,
+            </if>
+            <if test="real_pay_amount != null">
+                real_pay_amount,
+            </if>
+            <if test="review_user != null">
+                review_user,
+            </if>
+            <if test="is_ship != null">
+                is_ship,
+            </if>
+            <if test="receipt_at != null">
+                receipt_at,
+            </if>
+            <if test="ship_price != null">
+                ship_price,
+            </if>
+            <if test="ship_info != null">
+                ship_info,
+            </if>
+            <if test="pay_at != null">
+                pay_at,
+            </if>
+            <if test="pay_type != null">
+                pay_type,
+            </if>
+            <if test="create_at != null">
+                create_at,
+            </if>
+            <if test="update_at != null">
+                update_at,
+            </if>
+            <if test="offline_pay_amount != null">
+                offline_pay_amount,
+            </if>
+            <if test="barcode != null">
+                barcode,
+            </if>
+            <if test="outid != null">
+                outid,
+            </if>
+            <if test="check_code != null">
+                check_code,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="ordernum != null">
+                #{ordernum},
+            </if>
+            <if test="appid != null">
+                #{appid},
+            </if>
+            <if test="pkmuser != null">
+                #{pkmuser},
+            </if>
+            <if test="pkmuser_name != null">
+                #{pkmuser_name},
+            </if>
+            <if test="userid != null">
+                #{userid},
+            </if>
+            <if test="order_type != null">
+                #{order_type},
+            </if>
+            <if test="order_title != null">
+                #{order_title},
+            </if>
+            <if test="order_status != null">
+                #{order_status},
+            </if>
+            <if test="discounted_amount != null">
+                #{discounted_amount},
+            </if>
+            <if test="amount != null">
+                #{amount},
+            </if>
+            <if test="real_pay_amount != null">
+                #{real_pay_amount},
+            </if>
+            <if test="review_user != null">
+                #{review_user},
+            </if>
+            <if test="is_ship != null">
+                #{is_ship},
+            </if>
+            <if test="receipt_at != null">
+                #{receipt_at},
+            </if>
+            <if test="ship_price != null">
+                #{ship_price},
+            </if>
+            <if test="ship_info != null">
+                #{ship_info},
+            </if>
+            <if test="pay_at != null">
+                #{pay_at},
+            </if>
+            <if test="pay_type != null">
+                #{pay_type},
+            </if>
+            <if test="update_at != null">
+                #{update_at},
+            </if>
+            <if test="create_at != null">
+                #{create_at},
+            </if>
+            <if test="offline_pay_amount != null">
+                #{offline_pay_amount},
+            </if>
+            <if test="barcode != null">
+                #{barcode},
+            </if>
+            <if test="outid != null">
+                #{outid},
+            </if>
+            <if test="check_code != null">
+                #{check_code},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertGoods" parameterType="com.mszx.hyb.ordercenter.entity.HybGoods">
+        insert into hyb_ct_oc_goods(
+        orderid, goodsid, goods_pic, goods_num, goods_price,
+        goods_name,update_at,create_at)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.orderid}, #{item.goodsid}, #{item.goods_pic}, #{item.goods_num}, #{item.goods_price},
+            #{item.goods_name},#{item.update_at},#{item.create_at})
+        </foreach>
+    </insert>
+
+    <select id="findOrderByOrdernum" parameterType="String" resultType="com.mszx.hyb.ordercenter.entity.HybOrder">
+        SELECT
+        <include refid="Base_Column_List" />
+        from hyb_ct_oc_order
+        where ordernum = #{orderNum}
+    </select>
+
+    <update id="updatePayNotify" parameterType="com.mszx.hyb.ordercenter.entity.HybOrder">
+        update hyb_ct_oc_order set
+        pay_type = #{pay_type},
+        pay_at = #{pay_at},
+        real_pay_amount = #{real_pay_amount},
+        order_status = #{order_status},
+        outOrderId = #{outOrderId}
+        <if test="outid != null">
+           , outid =   #{outid}
+        </if>
+        where ordernum = #{ordernum}
+    </update>
+    <update id="updateCheckConsume" parameterType="com.mszx.hyb.ordercenter.entity.HybOrder">
+        update hyb_ct_oc_order set
+        check_consume_status = #{check_consume_status},
+        check_consume_time = #{check_consume_time},
+        check_consume_user = #{check_consume_user},
+        check_consume_source = #{check_consume_source}
+        where orderid = #{orderid}
+    </update>
+
+    <select id="findOrderGoods" resultType="com.mszx.hyb.ordercenter.entity.HybGoods" parameterType="Integer">
+        select  order_goods_id, orderid, goodsid, goods_pic, goods_num, goods_price,
+        goods_name,  update_at, create_at from hyb_ct_oc_goods where orderid = #{orderid}
+    </select>
+
+    <select id="findOrderList" resultType="com.mszx.hyb.ordercenter.entity.HybOrder" parameterType="com.mszx.hyb.ordercenter.params.SearchOrderListParams">
+        select <include refid="Base_Column_List" />
+        from hyb_ct_oc_order
+        <where>
+            order_status not in (0,8,9)
+            <if test="pkmuser_name != null and pkmuser_name != ''">
+               and pkmuser_name  like CONCAT('%',#{pkmuser_name},'%')
+            </if>
+            <if test="order_type != null">
+                and order_type = #{order_type}
+            </if>
+        </where>
+        order by create_at desc
+    </select>
+
+    <select id="findOrderByOrderInfo" resultType="com.mszx.hyb.ordercenter.entity.HybOrder"  parameterType="com.mszx.hyb.ordercenter.entity.HybOrder">
+        select <include refid="Base_Column_List" />
+         from hyb_ct_oc_order
+        where pkmuser = #{pkmuser} and check_code = #{check_code}
+    </select>
+
+</mapper>

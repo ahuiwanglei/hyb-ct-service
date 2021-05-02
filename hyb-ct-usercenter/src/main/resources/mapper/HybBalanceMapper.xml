@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mszx.hyb.dao.HybBalanceMapper">
+
+    <insert id="insertSelective" parameterType="com.mszx.hyb.entity.HybBalance">
+        insert into hyb_balance
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pkbalance != null">pkbalance,</if>
+            <if test="pkregister != null">pkregister,</if>
+            <if test="pkmuser != null">pkmuser,</if>
+            <if test="balance != null">balance,</if>
+            <if test="createtime != null">createtime,</if>
+            <if test="remark != null">remark,</if>
+            <if test="wealmoney != null">wealmoney,</if>
+            <if test="virtualbalance != null">virtualbalance,</if>
+            <if test="investbalance != null">investbalance,</if>
+            <if test="growthvalue != null">growthvalue,</if>
+            <if test="grade != null">grade,</if>
+            <if test="discount != null">discount,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="pkbalance != null">#{pkbalance,jdbcType=CHAR},</if>
+            <if test="pkregister != null">#{pkregister,jdbcType=CHAR},</if>
+            <if test="pkmuser != null">#{pkmuser,jdbcType=CHAR},</if>
+            <if test="balance != null">#{balance,jdbcType=DECIMAL},</if>
+            <if test="createtime != null">
+                #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remark != null">#{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="wealmoney != null">#{wealmoney,jdbcType=DECIMAL},
+            </if>
+            <if test="virtualbalance != null">#{virtualbalance,jdbcType=DECIMAL},
+            </if>
+            <if test="investbalance != null">#{investbalance,jdbcType=DECIMAL},
+            </if>
+            <if test="growthvalue != null">#{growthvalue},
+            </if>
+            <if test="grade != null">#{grade},
+            </if>
+            <if test="discount != null">#{discount},
+            </if>
+        </trim>
+    </insert>
+
+    <sql id="Base_Column_List">
+	 pkbalance, pkregister, pkmuser, balance,createtime, remark, wealmoney,interest,totalinterest,freezebalance,investbalance,virtualbalance, halfstorebalance,
+	 version_code, card_gift as balance_gift
+	</sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String"
+            resultType="com.mszx.hyb.entity.HybBalance">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        hyb_balance where pkbalance = #{pkbalance,jdbcType=CHAR}
+    </select>
+
+    <select id="selectByPkmuserAndPkregister" parameterType="java.lang.String"
+            resultType="com.mszx.hyb.entity.HybBalance">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        hyb_balance where
+        pkmuser = #{pkmuser,jdbcType=CHAR}
+        and
+        pkregister=#{pkregister,jdbcType=CHAR}
+    </select>
+
+    <update id="updateBalanceByPkmuserAndPkregister" parameterType="com.mszx.hyb.entity.HybBalance">
+        update hyb_balance
+        <set>
+            <if test="balance != null"> balance = #{balance,jdbcType=DECIMAL}, </if>
+            <if test="totalinterest != null"> totalinterest = #{totalinterest,jdbcType=DECIMAL}, </if>
+            <if test="virtualbalance != null"> virtualbalance = #{virtualbalance,jdbcType=DECIMAL}, </if>
+            <if test="freezebalance != null"> freezebalance = #{freezebalance,jdbcType=DECIMAL}, </if>
+            <if test="investbalance != null"> investbalance = #{investbalance,jdbcType=DECIMAL}, </if>
+            <if test="interest != null"> interest = #{interest,jdbcType=DECIMAL}, </if>
+        </set>
+        where pkregister=#{pkregister} AND pkmuser=#{pkmuser}
+    </update>
+    <!-- 抵扣商城-付款后更新用户平台余额值 -->
+    <update id="updateBalanceByPK" parameterType="com.mszx.hyb.entity.HybBalance">
+		update hyb_balance
+        <set>
+            <if test="balance != null"> balance = #{balance,jdbcType=DECIMAL}, </if>
+            <if test="totalinterest != null"> totalinterest = #{totalinterest,jdbcType=DECIMAL}, </if>
+            <if test="virtualbalance != null"> virtualbalance = #{virtualbalance,jdbcType=DECIMAL}, </if>
+            <if test="freezebalance != null"> freezebalance = #{freezebalance,jdbcType=DECIMAL}, </if>
+            <if test="investbalance != null"> investbalance = #{investbalance,jdbcType=DECIMAL}, </if>
+            <if test="interest != null"> interest = #{interest,jdbcType=DECIMAL}, </if>
+        </set>
+        where pkbalance=#{pkbalance}
+	</update>
+
+
+</mapper>

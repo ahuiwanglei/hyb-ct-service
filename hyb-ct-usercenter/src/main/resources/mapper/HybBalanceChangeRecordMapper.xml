@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mszx.hyb.dao.HybBalanceChangeRecordMapper">
+  <resultMap id="BaseResultMap" type="com.mszx.hyb.entity.HybBalanceChangeRecord">
+    <id column="changeId" jdbcType="BIGINT" property="changeId" />
+    <result column="pkregister" jdbcType="CHAR" property="pkregister" />
+    <result column="orderTime" jdbcType="TIMESTAMP" property="orderTime" />
+    <result column="orderMoney" jdbcType="DECIMAL" property="orderMoney" />
+    <result column="orderSubject" jdbcType="VARCHAR" property="orderSubject" />
+    <result column="before_balance" jdbcType="DECIMAL" property="before_balance" />
+    <result column="after_balance" jdbcType="DECIMAL" property="after_balance" />
+    <result column="before_totalinterest" jdbcType="DECIMAL" property="before_totalinterest" />
+    <result column="after_totalinterest" jdbcType="DECIMAL" property="after_totalinterest" />
+    <result column="changeType" jdbcType="INTEGER" property="changeType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    changeId, pkregister, orderTime, round(orderMoney, 2) as orderMoney, orderSubject, round(before_balance, 2) as before_balance, round(after_balance, 2) as after_balance, 
+    case when before_totalinterest = 0 then 0 else round(before_totalinterest-0.005, 2) end as before_totalinterest,
+    case when after_totalinterest = 0 then 0 else round(after_totalinterest-0.005, 2) end as after_totalinterest, 
+    changeType
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from hyb_balancechange_record
+    where changeId = #{changeId,jdbcType=BIGINT}
+  </select>
+
+
+  <insert id="insertSelective" parameterType="com.mszx.hyb.entity.HybBalanceChangeRecord">
+    insert into hyb_balancechange_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="changeId != null">
+        changeId,
+      </if>
+      <if test="pkregister != null">
+        pkregister,
+      </if>
+      <if test="orderTime != null">
+        orderTime,
+      </if>
+      <if test="orderMoney != null">
+        orderMoney,
+      </if>
+      <if test="orderSubject != null">
+        orderSubject,
+      </if>
+      <if test="before_balance != null">
+        before_balance,
+      </if>
+      <if test="after_balance != null">
+        after_balance,
+      </if>
+      <if test="before_totalinterest != null">
+        before_totalinterest,
+      </if>
+      <if test="after_totalinterest != null">
+        after_totalinterest,
+      </if>
+      <if test="changeType != null">
+        changeType,
+      </if>
+      <if test="biztype != null">
+        biztype,
+      </if>
+      <if test="source_type != null">
+        source_type,
+      </if>
+      <if test="orderid != null">
+        orderid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="changeId != null">
+        #{changeId,jdbcType=BIGINT},
+      </if>
+      <if test="pkregister != null">
+        #{pkregister,jdbcType=CHAR},
+      </if>
+      <if test="orderTime != null">
+        #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderMoney != null">
+        #{orderMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="orderSubject != null">
+        #{orderSubject,jdbcType=VARCHAR},
+      </if>
+      <if test="before_balance != null">
+        #{before_balance,jdbcType=DECIMAL},
+      </if>
+      <if test="after_balance != null">
+        #{after_balance,jdbcType=DECIMAL},
+      </if>
+      <if test="before_totalinterest != null">
+        #{before_totalinterest,jdbcType=DECIMAL},
+      </if>
+      <if test="after_totalinterest != null">
+        #{after_totalinterest,jdbcType=DECIMAL},
+      </if>
+      <if test="changeType != null">
+        #{changeType,jdbcType=INTEGER},
+      </if>
+      <if test="biztype != null">
+        #{biztype,jdbcType=INTEGER},
+      </if>
+      <if test="source_type != null">
+        #{source_type,jdbcType=INTEGER},
+      </if>
+      <if test="orderid != null">
+        #{orderid,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <insert id="addVirtualRecord" parameterType="com.mszx.hyb.entity.VirtualRecord">
+        insert into hyb_member_virtualrecord(pkmembervirtualrecord, pkregister, startdate, amount, type, remark, createuser, createtime, sourcepk, pkmuser,status)
+        values(#{pkmembervirtualrecord}, #{pkregister}, now(), #{amount}, #{type}, #{remark}, #{createuser}, now(), #{sourcepk}, #{pkmuser}, #{status})
+   </insert>
+
+</mapper>
