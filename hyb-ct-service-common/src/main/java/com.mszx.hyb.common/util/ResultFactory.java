@@ -11,6 +11,10 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * sdfasdfas
+ */
+
 public class ResultFactory {
     public static <T> Result<T> getErrorResult(T data) {
         Result model = new Result();
