@@ -34,6 +34,7 @@ public class ResultFactory {
 
 //    public static  Result getErrorResult(String msg) {
 //        return getErrorResult(CommonFinal.RESULT_CODE_FAILURE, CommonFinal.FAIL);
+   // sadfasfdas
     //wl test git commit 1
 //    }
 
