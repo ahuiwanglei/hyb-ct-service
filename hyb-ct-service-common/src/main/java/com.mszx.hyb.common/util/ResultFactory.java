@@ -36,7 +36,8 @@ public class ResultFactory {
 //        return getErrorResult(CommonFinal.RESULT_CODE_FAILURE, CommonFinal.FAIL);
    // sadfasfdas
     //wl test git commit 1
-    //asdfasdfasdf
+    //bbbbbbbb
+    //2222
 //    }
 
     public static <T> Result<T>  getSuccessResult(T data) {
@@ -48,6 +49,13 @@ public class ResultFactory {
     }
 
     //封装分页-asdfasdfasdf
+    //sdfasdfas
+    //谢谢
+    ///1212112
+    //112222
+    //8888
+    //12312312
+    //123
     public static<T> Result<PageInfoResult<T>> getSuccessResult(PageInfo<T> pageInfo){
         PageInfoResult result = new PageInfoResult();
         result.setList(pageInfo.getList());
