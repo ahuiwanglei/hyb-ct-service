@@ -36,6 +36,7 @@ public class ResultFactory {
 //        return getErrorResult(CommonFinal.RESULT_CODE_FAILURE, CommonFinal.FAIL);
    // sadfasfdas
     //wl test git commit 1
+    //asdfasdfasdf
 //    }
 
     public static <T> Result<T>  getSuccessResult(T data) {
