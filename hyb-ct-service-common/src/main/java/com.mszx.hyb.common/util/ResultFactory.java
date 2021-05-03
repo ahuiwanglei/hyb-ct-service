@@ -47,7 +47,7 @@ public class ResultFactory {
         return model;
     }
 
-    //封装分页
+    //封装分页-asdfasdfasdf
     public static<T> Result<PageInfoResult<T>> getSuccessResult(PageInfo<T> pageInfo){
         PageInfoResult result = new PageInfoResult();
         result.setList(pageInfo.getList());
