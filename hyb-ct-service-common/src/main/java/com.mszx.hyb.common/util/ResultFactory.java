@@ -49,13 +49,6 @@ public class ResultFactory {
     }
 
     //封装分页-asdfasdfasdf
-    //sdfasdfas
-    //谢谢
-    ///1212112
-    //112222
-    //8888
-    //12312312
-    //123
     public static<T> Result<PageInfoResult<T>> getSuccessResult(PageInfo<T> pageInfo){
         PageInfoResult result = new PageInfoResult();
         result.setList(pageInfo.getList());
