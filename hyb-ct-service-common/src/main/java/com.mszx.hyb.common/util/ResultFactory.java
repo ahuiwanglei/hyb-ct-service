@@ -11,6 +11,10 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * sdfasdfas
+ */
+
 public class ResultFactory {
     public static <T> Result<T> getErrorResult(T data) {
         Result model = new Result();
@@ -30,6 +34,9 @@ public class ResultFactory {
 
 //    public static  Result getErrorResult(String msg) {
 //        return getErrorResult(CommonFinal.RESULT_CODE_FAILURE, CommonFinal.FAIL);
+   // sadfasfdas
+    //wl test git commit 1
+    //asdfasdfasdf
 //    }
 
     public static <T> Result<T>  getSuccessResult(T data) {
