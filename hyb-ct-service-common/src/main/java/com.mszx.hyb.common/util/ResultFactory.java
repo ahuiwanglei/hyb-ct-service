@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * sdfasdfas
+ *
  */
 
 public class ResultFactory {
@@ -32,12 +32,7 @@ public class ResultFactory {
         return model;
     }
 
-//    public static  Result getErrorResult(String msg) {
-//        return getErrorResult(CommonFinal.RESULT_CODE_FAILURE, CommonFinal.FAIL);
-   // sadfasfdas
-    //wl test git commit 1
-    //asdfasdfasdf
-//    }
+
 
     public static <T> Result<T>  getSuccessResult(T data) {
         Result model = new Result();
@@ -47,7 +42,7 @@ public class ResultFactory {
         return model;
     }
 
-    //封装分页-asdfasdfasdf
+    //封装分页-
     public static<T> Result<PageInfoResult<T>> getSuccessResult(PageInfo<T> pageInfo){
         PageInfoResult result = new PageInfoResult();
         result.setList(pageInfo.getList());
